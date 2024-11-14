@@ -1,7 +1,7 @@
 {
   "name": "cs484",
   "version": "0.1.0",
-  "homepage": "https://poojan-9603.github.io/demo/",
+  "homepage": "https://poojan-9603.github.io/demo",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

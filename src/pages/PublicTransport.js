@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; // Import Firestore
-import { collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore'; // Import Firestore functions
+import { collection, getDocs, doc, updateDoc, increment, getDoc } from 'firebase/firestore'; // Import Firestore functions
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth
 import './PublicTransport.css'; // Import the CSS file
 
@@ -103,31 +103,31 @@ const PublicTransport = () => {
     navigate('/doTheMath', { state: { cost: costValue, distance: distanceValue } });
   };
 
-  // const handleAddToSavings = async () => {
-  //   const auth = getAuth();
-  //   const user = auth.currentUser;
+  const handleAddToSavings = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-  //   if (user) {
-  //     const userId = user.uid; // Get the user's ID
-  //     const userDocRef = doc(db, 'users', userId); // Reference to the user's document
+    if (user) {
+      const userId = user.uid; // Get the user's ID
+      const userDocRef = doc(db, 'users', userId); // Reference to the user's document
 
-  //     try {
-  //       // Update the user's savings and balance
-  //       await updateDoc(userDocRef, {
-  //         savings: increment(cost), // Increment the savings by the cost
-  //         balance: increment(cost) // Update balance as well
-  //       });
+      try {
+        // Update the user's savings and balance
+        await updateDoc(userDocRef, {
+          savings: increment(cost), // Increment the savings by the cost
+          balance: increment(cost) // Update balance as well
+        });
 
-  //       console.log(`Added ${cost} to savings.`);
-  //       navigate('/dashboard'); // Navigate back to the dashboard
-  //     } catch (error) {
-  //       console.error('Error updating savings: ', error.message); // Log the error message
-  //       setError('Failed to update savings. Please try again.'); // Set error state for user feedback
-  //     }
-  //   } else {
-  //     setError('User not authenticated. Please log in.');
-  //   }
-  // };
+        console.log(`Added ${cost} to savings.`);
+        navigate('/dashboard'); // Navigate back to the dashboard
+      } catch (error) {
+        console.error('Error updating savings: ', error.message); // Log the error message
+        setError('Failed to update savings. Please try again.'); // Set error state for user feedback
+      }
+    } else {
+      setError('User not authenticated. Please log in.');
+    }
+  };
 
   const handleInitializeExpenses = async () => {
     const auth = getAuth();
@@ -203,7 +203,7 @@ const PublicTransport = () => {
   // Call handleInitializeExpenses when the component mounts
   useEffect(() => {
     handleInitializeExpenses();
-  }, [handleInitializeExpenses]);
+  }, []);
 
   return (
     <div className="container">
