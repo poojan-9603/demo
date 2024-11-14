@@ -8,7 +8,7 @@ import { getAuth } from 'firebase/auth'; // Import Firebase Auth
 const DoTheMath = () => {
   const location = useLocation();
   const navigate = useNavigate(); // Initialize useNavigate
-  const { cost, distance } = location.state || { cost: null, distance: null }; // Destructure cost and distance
+  const { cost} = location.state || { cost: null, distance: null }; // Destructure cost and distance
   const [fetchedDistance, setFetchedDistance] = useState(null);
   const [caloriesCycling, setCaloriesCycling] = useState(0);
   const [caloriesRunning, setCaloriesRunning] = useState(0);
@@ -41,13 +41,13 @@ const DoTheMath = () => {
   }, []);
 
   const calculateMetrics = (distance) => {
-    const costPerKm = 0.5; // Example cost per kilometer
+    // const costPerKm = 0.5; // Example cost per kilometer
     const caloriesPerKmCycling = 50; // Average calories burned per km cycling
     const caloriesPerKmRunning = 100; // Average calories burned per km running
     const carbonPerKm = 0.1; // Example carbon emissions per km in kg
 
     // Calculate values
-    const calculatedCost = distance * costPerKm;
+    // const calculatedCost = distance * costPerKm;
     const calculatedCaloriesCycling = distance * caloriesPerKmCycling;
     const calculatedCaloriesRunning = distance * caloriesPerKmRunning;
     const calculatedCarbonEmissions = distance * carbonPerKm;
